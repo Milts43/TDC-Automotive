@@ -1,0 +1,247 @@
+```jsx
+import React, { useState } from "react";
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState("home");
+
+  // Testimonial Data
+  const testimonials = [
+    {
+      name: "Michael T.",
+      car: "2018 BMW M3",
+      rating: 5,
+      text: "They completely transformed my M3. From the engine to the suspension—every detail was perfect!",
+    },
+    {
+      name: "Jessica R.",
+      car: "2020 Audi S4",
+      rating: 5,
+      text: "Best shop in town! Upgraded my turbo system and now it’s faster than ever.",
+    },
+    {
+      name: "Daniel L.",
+      car: "2005 BMW E46 M3",
+      rating: 5,
+      text: "Did a full engine swap on my old M3. It feels like new again. Highly recommend!",
+    },
+  ];
+
+  return (
+    <div className="bg-gray-900 text-white min-h-screen font-sans">
+      {/* Navbar */}
+      <nav className="bg-black p-4 flex justify-between items-center sticky top-0 z-50">
+        <h1 className="text-xl md:text-2xl font-bold text-blue-500">Powerhause Performance</h1>
+        <ul className="hidden md:flex space-x-6 text-sm uppercase tracking-wider">
+          <li><button onClick={() => setActiveTab("home")} className={activeTab === "home" ? "text-blue-500" : ""}>Home</button></li>
+          <li><button onClick={() => setActiveTab("services")} className={activeTab === "services" ? "text-blue-500" : ""}>Services</button></li>
+          <li><button onClick={() => setActiveTab("testimonials")} className={activeTab === "testimonials" ? "text-blue-500" : ""}>Testimonials</button></li>
+          <li><button onClick={() => setActiveTab("contact")} className={activeTab === "contact" ? "text-blue-500" : ""}>Contact</button></li>
+        </ul>
+        <button className="md:hidden text-blue-500 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </nav>
+
+      {/* Hero Section */}
+      {activeTab === "home" && (
+        <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-blue-900 opacity-70 z-10"></div>
+          <img src="https://placehold.co/1920x1080/1a1a1a/007BFF/?text=BMW+Audi+Performance+Shop" alt="Car performance tuning" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="relative z-20 text-center px-6 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Powerhause Performance</h2>
+            <p className="mt-4 text-lg md:text-2xl text-blue-300 drop-shadow-md">
+              Expert Repair & Tuning for BMWs & Audis Since 2000
+            </p>
+            <button onClick={() => setActiveTab("contact")} className="mt-8 px-8 py-3 bg-blue-600 hover:bg-blue-700 transition text-white rounded-full font-semibold shadow-lg transform hover:scale-105">
+              Contact Us Now
+            </button>
+          </div>
+        </section>
+      )}
+
+      {/* Services Section */}
+      {activeTab === "services" && (
+        <section id="services" className="py-20 px-6 bg-gray-900">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 text-blue-500">Our Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <ServiceCard title="Engine Swaps" description="From LS swaps to full S55 conversions, we do it all with precision." icon={<EngineIcon />} />
+              <ServiceCard title="Performance Tuning" description="Turbo upgrades, exhaust systems, custom tunes for maximum power." icon={<TuningIcon />} />
+              <ServiceCard title="Full Maintenance" description="Oil changes, brakes, cooling systems — keep your car running strong." icon={<MaintenanceIcon />} />
+              <ServiceCard title="Suspension & Handling" description="Coilovers, bushings, alignments — make your car handle like new." icon={<SuspensionIcon />} />
+              <ServiceCard title="Electrical Diagnostics" description="Modern diagnostics for complex BMW/Audi electrical systems." icon={<DiagnosticsIcon />} />
+              <ServiceCard title="Cosmetic Repairs" description="Paint correction, bumper repair, and minor bodywork services." icon={<BodyworkIcon />} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Testimonials Section */}
+      {activeTab === "testimonials" && (
+        <section id="testimonials" className="py-20 px-6 bg-gray-800">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 text-blue-500">What Our Clients Say</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <TestimonialCard key={index} {...testimonial} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Contact Section */}
+      {activeTab === "contact" && (
+        <section id="contact" className="py-20 px-6 bg-gray-900">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12 text-blue-500">Get In Touch</h2>
+            <div className="flex flex-col md:flex-row gap-10 items-start">
+              <div className="w-full md:w-1/2">
+                <p className="mb-4 text-lg">
+                  Reach out today to schedule an appointment or get a quote.
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-center">
+                    <span className="mr-3 text-blue-500">
+                      <EmailIcon />
+                    </span>
+                    <a href="mailto:bmwwizz@gmail.com" className="hover:underline">bmwwizz@gmail.com</a>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="mr-3 text-blue-500">
+                      <PhoneIcon />
+                    </span>
+                    <a href="tel:9092725194" className="hover:underline">(909) 272-5194</a>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="mr-3 text-blue-500">
+                      <InstagramIcon />
+                    </span>
+                    <a href="https://instagram.com/Powerhause.performance" target="_blank" rel="noopener noreferrer" className="hover:underline">@Powerhause.performance</a>
+                  </li>
+                </ul>
+              </div>
+              <div className="w-full md:w-1/2">
+                <form className="space-y-4">
+                  <input type="text" placeholder="Your Name" className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none" />
+                  <input type="email" placeholder="Your Email" className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none" />
+                  <textarea rows="5" placeholder="Your Message" className="w-full p-3 rounded bg-gray-700 border border-gray-600 focus:border-blue-500 outline-none"></textarea>
+                  <button type="submit" className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition transform hover:scale-105">
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-black text-center py-6 text-sm text-gray-500">
+        <p>© {new Date().getFullYear()} Powerhause Performance | Specializing in BMW & Audi Repair & Performance since 2000</p>
+      </footer>
+    </div>
+  );
+}
+
+// Reusable Components
+
+function ServiceCard({ title, description, icon }) {
+  return (
+    <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-blue-900/30 transition group transform hover:-translate-y-1">
+      <div className="text-blue-500 text-4xl mb-4 group-hover:scale-110 transition-transform">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
+      <p className="text-gray-300">{description}</p>
+    </div>
+  );
+}
+
+function TestimonialCard({ name, car, rating, text }) {
+  return (
+    <div className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-blue-900/30 transition">
+      <div className="flex text-yellow-400 text-lg mb-2">
+        {"★".repeat(rating)}
+      </div>
+      <p className="italic text-gray-300 mb-4">"{text}"</p>
+      <p className="font-semibold text-white">{name}</p>
+      <p className="text-gray-400 text-sm">{car}</p>
+    </div>
+  );
+}
+
+// SVG Icons
+
+function EngineIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M12 6L4 10V14L12 18L20 14V10L12 6ZM12 16L6 12L12 8V16ZM16 12L12 9.5V14.5L16 12Z" />
+    </svg>
+  );
+}
+
+function TuningIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15Z" />
+      <path d="M19.43 12.97C19.47 13.11 19.5 13.25 19.5 13.39C19.5 14.03 18.71 14.44 18.16 14.15L14.46 12.22C14.61 11.63 14.61 11.01 14.46 10.42L18.16 8.49C18.71 8.2 19.47 8.61 19.43 9.25C19.36 10.37 19.36 11.49 19.43 12.61M14.43 18.39C14.29 18.53 14.16 18.67 14 18.8C13.2 19.59 11.8 19.59 11 18.8C10.84 18.67 10.67 18.53 10.57 18.39L6.86 16.46C7.29 15.91 7.29 15.09 6.86 14.54L10.57 12.61C10.67 12.47 10.8 12.33 11 12.2C11.8 11.41 13.2 11.41 14 12.2C14.16 12.33 14.33 12.47 14.43 12.61L18.14 14.54C17.71 15.09 17.71 15.91 18.14 16.46L14.43 18.39Z" />
+    </svg>
+  );
+}
+
+function MaintenanceIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M5,7.77V11H19V7.77L12,5L5,7.77M12,12A3,3 0 0,1 9,15A3,3 0 0,1 6,12A3,3 0 0,1 9,9A3,3 0 0,1 12,12Z" />
+    </svg>
+  );
+}
+
+function SuspensionIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M4,18H16V16H4M4,13H20V11H4M4,8H16V6H4M2,20V4H6L12,8L18,4H22V20H18L12,16L6,20H2Z" />
+    </svg>
+  );
+}
+
+function DiagnosticsIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M5,7.77V11H19V7.77L12,5L5,7.77M12,12A3,3 0 0,1 9,15A3,3 0 0,1 6,12A3,3 0 0,1 9,9A3,3 0 0,1 12,12Z" />
+    </svg>
+  );
+}
+
+function BodyworkIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+      <path d="M20.5,14.5C20.31,14.5 20.12,14.47 19.94,14.41C19.67,14.33 19.44,14.17 19.27,13.95C18.91,13.47 18.96,12.79 19.38,12.37L20.31,11.44C20.73,11.02 21.41,11.07 21.89,11.44C22.37,11.81 22.32,12.49 21.9,12.91L20.97,13.84C20.8,14.01 20.65,14.16 20.5,14.29V14.5M19,10.5C18.45,10.5 18,10.05 18,9.5C18,8.95 18.45,8.5 19,8.5C19.55,8.5 20,8.95 20,9.5C20,10.05 19.55,10.5 19,10.5M17,17H7C5.9,17 5,16.11 5,15V9C5,7.9 5.9,7 7,7H17C18.1,7 19,7.9 19,9V15C19,16.11 18.1,17 17,17M17,9V15H7V9H17Z" />
+    </svg>
+  );
+}
+
+function EmailIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+      <polyline points="22,6 12,13 2,6"></polyline>
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  );
